@@ -20,10 +20,6 @@
  * #L%
  */
 import static stitching.CommonFunctions.addHyperLinkListener;
-import fiji.util.gui.GenericDialogPlus;
-import ij.IJ;
-import ij.gui.MultiLineLabel;
-import ij.plugin.PlugIn;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -31,6 +27,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import fiji.util.gui.GenericDialogPlus;
+import ij.gui.MultiLineLabel;
+import ij.plugin.PlugIn;
 import stitching.utils.Log;
 
 
@@ -155,9 +154,9 @@ public class DeltaVision_Converter implements PlugIn
 					double zPos = Double.parseDouble( content[2].trim() ) / zRes;
 					
 			        if (dim == 3)
-		    			out.println( "image_" + Stitch_Image_Grid.getLeadingZeros( 8, countImages) + "; ; (" + xPos + ", " + yPos + ", " + zPos + ")");
+		    			out.println( "image_" + getLeadingZeros( 8, countImages) + "; ; (" + xPos + ", " + yPos + ", " + zPos + ")");
 		    		else
-		    			out.println( "image_" + Stitch_Image_Grid.getLeadingZeros( 8, countImages) + "; ; (" + xPos + ", " + yPos + ")");
+		    			out.println( "image_" + getLeadingZeros( 8, countImages) + "; ; (" + xPos + ", " + yPos + ")");
 			        
 			        ++countImages;
 				}
@@ -174,7 +173,17 @@ public class DeltaVision_Converter implements PlugIn
 		
 				
 	}	
-	
+
+	public static String getLeadingZeros(int zeros, int number)
+	{
+		String output = "" + number;
+		
+		while (output.length() < zeros)
+			output = "0" + output;
+		
+		return output;
+	}
+
 	public static void main( String[] args )
 	{
 		DeltaVision_Converter dv = new DeltaVision_Converter();
